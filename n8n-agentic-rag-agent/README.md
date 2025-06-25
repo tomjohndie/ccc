@@ -1,38 +1,37 @@
-## 🚀 Ultimate n8n Agentic RAG Template
+## 🚀 终极 n8n Agentic RAG 模板
 
-**Author:** [Cole Medin](https://www.youtube.com/@ColeMedin)
+**作者：** [Cole Medin](https://www.youtube.com/@ColeMedin)
 
-## What is this?
-This template provides a complete implementation of an **Agentic RAG (Retrieval Augmented Generation)** system in n8n that can be extended easily for your specific use case and knowledge base. Unlike standard RAG which only performs simple lookups, this agent can reason about your knowledge base, self-improve retrieval, and dynamically switch between different tools based on the specific question.
+## 这是什么？
+本模板在 n8n 中提供了 **Agentic RAG（检索增强生成）** 系统的完整实现，并且易于根据你的具体用例和知识库进行扩展。与仅做简单查找的传统 RAG 不同，本代理能够针对你的知识库进行推理、自动优化检索策略，并根据问题类型动态切换不同工具。
 
-## Why Agentic RAG?
-Standard RAG has significant limitations:
-- Poor analysis of numerical/tabular data
-- Missing context due to document chunking
-- Inability to connect information across documents
-- No dynamic tool selection based on question type
+## 为什么要用 Agentic RAG？
+传统 RAG 存在诸多局限：
+- 无法深入分析数值/表格数据  
+- 文档分块后可能丢失上下文  
+- 难以跨文档关联信息  
+- 无法根据问题类型动态选择工具  
 
-## What makes this template powerful:
-- **Intelligent tool selection**: Switches between RAG lookups, SQL queries, or full document retrieval based on the question
-- **Complete document context**: Accesses entire documents when needed instead of just chunks
-- **Accurate numerical analysis**: Uses SQL for precise calculations on spreadsheet/tabular data
-- **Cross-document insights**: Connects information across your entire knowledge base
-- **Multi-file processing**: Handles multiple documents in a single workflow loop
-- **Efficient storage**: Uses JSONB in Supabase to store tabular data without creating new tables for each CSV
+## 本模板的强大之处
+- **智能工具选择**：根据问题类型在 RAG 检索、SQL 查询或整文档检索之间切换  
+- **完整文档上下文**：必要时访问整篇文档，而非仅限分块内容  
+- **精准数值分析**：针对电子表格/表格数据，使用 SQL 做精确计算  
+- **跨文档洞察**：在整个知识库中关联和汇总信息  
+- **多文件处理**：在单个工作流循环中批量处理多份文档  
+- **高效存储**：在 Supabase 中用 JSONB 存储表格数据，无需为每个 CSV 创建新表  
 
-## Getting Started
-1. Run the table creation nodes first to set up your database tables in Supabase
-2. Upload your documents through Google Drive (or swap out for a different file storage solution)
-3. The agent will process them automatically (chunking text, storing tabular data in Supabase)
-4. Start asking questions that leverage the agent's multiple reasoning approaches
+## 快速开始
+1. 先运行“创建表”节点，在 Supabase 中初始化所需数据库表  
+2. 通过 Google Drive 上传文档（或替换为你偏好的文件存储方案）  
+3. 代理会自动处理上传的文件（分块文本、识别并存储表格数据至 Supabase）  
+4. 开始提问，让代理运用多种推理方式为你提供答案  
 
-## Customization
-This template provides a solid foundation that you can extend by:
-- Tuning the system prompt for your specific use case
-- Adding document metadata like summaries
-- Implementing more advanced RAG techniques
-- Optimizing for larger knowledge bases
+## 自定义与扩展
+你可以基于此模板进行如下扩展：  
+- 为特定场景优化系统提示词  
+- 添加文档元数据（如摘要）  
+- 引入更高级的 RAG 技术  
+- 针对更大规模的知识库做性能优化  
 
-## Contributing
-
-This agent is part of the oTTomator agents collection. For contributions or issues, please refer to the main repository guidelines.
+## 贡献指南
+此代理属于 oTTomator agents 系列。有关贡献或问题反馈，请参阅主仓库的贡献指南。
