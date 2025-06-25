@@ -1,165 +1,164 @@
-# n8n Expert Agent Workflow
+# n8n 专家代理工作流
 
-Author: [Cole Medin](https://www.youtube.com/@ColeMedin)
+作者：[Cole Medin](https://www.youtube.com/@ColeMedin)
 
-The n8n Expert Agent helps you find and understand n8n automation workflows. Simply describe what you're trying to automate, and the agent will recommend relevant workflows to help you get started.
+n8n 专家代理可帮助你查找并理解 n8n 自动化工作流。只需描述你想要实现的自动化场景，代理就会推荐相关的工作流示例，帮助你快速入门。
 
-For example:
-```
-User: "I need to automatically post tweets when new blog posts are published"
-Agent: Here are some recommended workflows to help you get started:
-- WordPress to Twitter Auto-Poster
-- Blog RSS Feed to Social Media
-- Content Distribution Workflow
-```
+示例：  
+用户：“我想在发布新博客文章时自动发推文”  
+代理：“以下是一些推荐的工作流：  
+- WordPress 到 Twitter 自动发帖  
+- 博客 RSS 订阅到社交媒体  
+- 内容分发工作流”
 
-The agent analyzes your request and provides matching workflows from its knowledge base, along with explanations of how to implement and customize them for your needs.
+代理会分析你的请求，从知识库中检索匹配的工作流，并附上如何实现和定制的说明。
 
-This agent is in beta, especially as its knowledgebase grows! Workflows won't always be super related to your query and sometimes it won't have any. This agent will also involve into a conversational agent eventually to help you build n8n workflows!
+> 目前该代理处于测试阶段，随着知识库的扩大，推荐结果可能并非始终十分相关，有时也可能无匹配项。未来它还将演化为对话式代理，帮助你直接构建 n8n 工作流！
 
-## Features
+## 功能
 
-- **Workflow Analysis**: Uses advanced LLM models to analyze n8n workflows and generate comprehensive summaries of:
-  - Overall workflow purpose and functionality
-  - Node configuration and connections
-  - Potential variations and expansion suggestions
+- **工作流分析**  
+  - 使用先进的 LLM 模型，生成工作流的全面摘要，包括：  
+    - 整体目的与功能  
+    - 各节点配置与连接方式  
+    - 可选的变体与扩展建议
 
-- **Legitimacy Validation**: Automatically detects and filters out test/spam workflows using AI-powered analysis
+- **合法性校验**  
+  - AI 驱动地检测并过滤测试 / 垃圾工作流
 
-- **Workflow Processing**: 
-  - Fetches workflow templates from n8n's public API
-  - Converts workflows into HTML demo components
-  - Generates vector embeddings for semantic search
+- **工作流处理**  
+  - 从 n8n 公共 API 获取工作流模板  
+  - 转换为 HTML 演示组件  
+  - 生成向量嵌入用于语义检索
 
-- **Data Storage**: 
-  - Stores processed workflows and analysis in Supabase
-  - Maintains workflow metadata, summaries, and searchable embeddings
+- **数据存储**  
+  - 将处理后的工作流和分析结果存入 Supabase  
+  - 保存工作流元数据、摘要及可搜索的嵌入向量
 
-## Core Capabilities
+## 核心能力
 
-1. **Intelligent Workflow Recommendations**
-   - Processes natural language queries about automation needs
-   - Uses LLM-powered analysis to match user requirements with existing workflows
-   - Provides contextually relevant workflow suggestions based on user intent
+1. 智能工作流推荐  
+   - 解析用户的自然语言自动化需求  
+   - 利用 LLM 分析匹配现有工作流  
+   - 基于用户意图提供情境相关的建议
 
-2. **Semantic Search and Analysis**
-   - Maintains a vector database of workflow descriptions and capabilities
-   - Performs semantic similarity matching between user queries and workflow purposes
-   - Filters and ranks workflows based on relevance to the user's needs
+2. 语义检索与分析  
+   - 维护工作流描述与功能的向量数据库  
+   - 通过语义相似度匹配用户查询与工作流用途  
+   - 根据相关度过滤并排序结果
 
-3. **Interactive Assistance**
-   - Responds through a webhook-based API endpoint (`/invoke-n8n-expert`)
-   - Maintains conversation context through session management
-   - Provides detailed explanations of recommended workflows
+3. 交互式辅助  
+   - 通过 Webhook API（`/invoke-n8n-expert`）响应请求  
+   - 会话管理保持上下文  
+   - 提供推荐工作流的详细解释
 
-### Use Cases
+## 使用场景
 
-1. **Workflow Discovery**
+1. 工作流发现  
    ```
-   User: "I need to automatically post tweets when new blog posts are published"
-   Agent: *Analyzes request and searches workflow database*
-   Result: Returns relevant WordPress-to-Twitter automation workflows
-   ```
-
-2. **Implementation Guidance**
-   - Explains how to adapt recommended workflows
-   - Highlights key nodes and configurations
-   - Suggests potential customizations
-
-3. **Best Practices**
-   - Recommends optimal node configurations
-   - Suggests error handling and reliability improvements
-   - Provides security and performance optimization tips
-
-### Integration Features
-
-1. **API Integration**
-   - Secure webhook endpoint with header authentication
-   - Structured JSON response format
-   - Session-based conversation tracking
-
-2. **Database Integration**
-   - Supabase backend for workflow storage
-   - Vector embeddings for semantic search
-   - Message history and context management
-
-3. **LLM Integration**
-   - Advanced language model for query understanding
-   - Workflow relevance scoring
-   - Natural language response generation
-
-### Example Interactions
-
-1. **Workflow Search**
-   ```
-   Input: "How can I sync data between Airtable and Google Sheets?"
-   Response: Provides relevant workflow examples with:
-   - Step-by-step implementation guide
-   - Required node configurations
-   - Customization options
+   用户：“我想在新博客文章发布时自动发推文”  
+   代理：*分析请求并检索工作流库*  
+   返回：WordPress 到 Twitter 自动化工作流示例  
    ```
 
-2. **Workflow Enhancement**
+2. 实施指导  
+   - 讲解如何适配推荐的工作流  
+   - 突出关键节点及配置  
+   - 提供定制化建议
+
+3. 最佳实践  
+   - 推荐最佳节点配置方式  
+   - 建议错误处理与稳定性改进  
+   - 提供安全性与性能优化技巧
+
+## 集成特性
+
+1. API 集成  
+   - 安全的 Webhook 端点（支持 Header 验证）  
+   - 结构化 JSON 响应  
+   - 基于会话的对话追踪
+
+2. 数据库集成  
+   - Supabase 后端存储工作流数据  
+   - 语义检索用嵌入向量  
+   - 消息历史与上下文管理
+
+3. LLM 集成  
+   - 高级语言模型理解用户查询  
+   - 评估工作流相关性  
+   - 生成自然语言回复
+
+## 示例交互
+
+1. 工作流检索  
    ```
-   Input: "How can I add error handling to my email automation?"
-   Response: Suggests:
-   - Error handling nodes to add
-   - Retry configurations
-   - Notification setup for failures
+   输入：“如何在 Airtable 与 Google Sheets 之间同步数据？”  
+   回复：  
+   - 步骤详解  
+   - 节点配置示例  
+   - 可定制选项  
    ```
 
-## Setup
+2. 工作流增强  
+   ```
+   输入：“如何为我的邮件自动化添加错误处理？”  
+   回复：  
+   - 建议添加的错误处理节点  
+   - 重试机制配置  
+   - 失败通知设置  
+   ```
 
-1. Copy `.env.example` to `.env` and configure the following environment variables:
-   - `LLM_MODEL`: Language model to use (default: 'gpt-4')
-   - `EMBEDDING_MODEL`: Embedding model (default: 'text-embedding-3-small')
-   - `SUPABASE_URL`: Your Supabase project URL
-   - `SUPABASE_SERVICE_KEY`: Your Supabase service key
+## 初始化配置
 
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+1. 将 `.env.example` 复制并重命名为 `.env`，配置以下环境变量：  
+   - `LLM_MODEL`：使用的语言模型（默认：'gpt-4'）  
+   - `EMBEDDING_MODEL`：嵌入模型（默认：'text-embedding-3-small'）  
+   - `SUPABASE_URL`：你的 Supabase 项目地址  
+   - `SUPABASE_SERVICE_KEY`：Supabase 服务密钥
 
-## Usage
+2. 安装依赖：  
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### Workflow Ingestion
+## 使用方法
 
-Run the workflow ingestion script:
+### 工作流导入
+
+运行导入脚本：  
 ```bash
 python ingest-n8n-workflows.py
 ```
+此操作将：  
+1. 从 n8n 模板库获取工作流  
+2. 校验每个工作流  
+3. 生成分析结果与嵌入向量  
+4. 入库至 Supabase
 
-This will:
-1. Fetch workflows from n8n's template library
-2. Validate each workflow
-3. Generate analysis and embeddings
-4. Store processed data in Supabase
+### API 集成
 
-### API Integration
+可将代理集成到 n8n 工作流中，使用提供的 `N8N_Expert_Agent.json` 模板，支持：  
+- Webhook 端点处理  
+- 查询参数解析  
+- 用户会话管理  
+- 与数据库交互
 
-The agent can be integrated into n8n workflows using the provided `N8N_Expert_Agent.json` workflow template, which handles:
-- Webhook endpoints for workflow processing
-- Query parameter handling
-- User session management
-- Database interactions
+## 文件说明
 
-## Files
+- `N8N_Expert_Agent.json`：专家代理的主 n8n 工作流模板  
+- `ingest-n8n-workflows.py`：处理并存储 n8n 工作流的 Python 脚本  
+- `requirements.txt`：Python 依赖  
+- `sql_script.sql`：数据库模式与初始化脚本  
+- `.env.example`：环境变量示例文件
 
-- `N8N_Expert_Agent.json`: Main n8n workflow template for the expert agent
-- `ingest-n8n-workflows.py`: Python script for processing and storing n8n workflows
-- `requirements.txt`: Python package dependencies
-- `sql_script.sql`: Database schema and setup scripts
-- `.env.example`: Example environment configuration file
+## 依赖项
 
-## Dependencies
+主要依赖包括：  
+- LangChain（用于 LLM 交互）  
+- OpenAI/Anthropic（语言模型）  
+- Supabase（数据存储）  
+- 其他 Python 工具包（详见 requirements.txt）
 
-Key dependencies include:
-- LangChain for LLM interactions
-- OpenAI/Anthropic for language models
-- Supabase for data storage
-- Various Python utilities (see requirements.txt for full list)
+## 贡献
 
-## Contributing
-
-This agent is part of the oTTomator agents collection. For contributions or issues, please refer to the main repository guidelines.
+此代理属于 oTTomator agents 系列。欢迎参阅主仓库贡献指南提出问题或贡献代码。
