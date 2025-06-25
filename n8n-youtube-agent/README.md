@@ -1,36 +1,35 @@
-# n8n Youtube Assistant
+# n8n YouTube 助手
 
-Author: [Dominik Fretz](https://www.linkedin.com/in/dominikfretz/)
+作者：[Dominik Fretz](https://www.linkedin.com/in/dominikfretz/)
 
-**Platform:** n8n (you can import the .json file into your own n8n instance to check out the flow)
+**平台：** n8n（你可以将 `.json` 文件导入到你自己的 n8n 实例中以查看工作流）
 
-## Agent
+## Agent 功能
 
-This agent can go and load the youtube transcripts of videos, based on the URL. It then adds the transcripts into a vector store, creates a summary, key points, quotes and other information and stores it in a supabase DB. You then can chat about the videos. Ask for summaries, or follow up questions to sepecific videos. You can also search previously added videos. So, if you remember that a video was talking about a specific book, a specific tool, or a person, you can just ask the agent.
+此 Agent 可根据 YouTube 视频链接获取视频的字幕，并将字幕内容添加到向量数据库中，生成摘要、关键要点、引用等信息，并将其存储到 Supabase 数据库中。随后，你可以就这些视频进行对话：请求视频摘要、对特定视频进行后续提问，或搜索已添加的视频——例如，想起某个视频中提到了一本书、某个工具或一个人名时，只需向 Agent 提问即可。
 
-### Features
+### 功能亮点
 
-- Add yt video transcripts to a Supabase vector store
-- Get summaries of the videos
-- Ask follow up questions to the videos
-- Search videos that have been previously been added
+- 将 YouTube 视频字幕添加到 Supabase 向量存储  
+- 获取视频摘要  
+- 对视频内容进行后续提问  
+- 搜索已添加的视频  
 
+### 依赖项
 
-### Dependencies
+- Claude Haiku（Anthropic）  
+- OpenAI Embedding 模型  
+- Supabase  
+- Supadata  
 
-- Claude Haiku
-- OpenAI Embedding Model
-- Supabase
-- Supadata
+### 配置要求
 
-### Required configuration setup
+- YouTube Data API 凭据（用于 “Fetch video details” 节点）  
+- Supadata.ai 凭据（用于获取视频字幕）  
+- OpenAI API 凭据（用于生成 Embeddings）  
+- Anthropic Claude API 凭据  
+- 在 Supabase 中创建 `videos` 表（参见 `supabase.table.sql`）
 
-- Credentials for Youtube Data API (Used in the 'Fetch video details' node)
-- Credentials for https://supadata.ai to fetch the Transcript
-- Credentials for OpenAI (embeddings)
-- Credentials for Anthropic Claude
-- create the 'videos' table in Supabase via `supabase.table.sql`
+## 贡献
 
-## Contributing
-
-This agent is part of the oTTomator agents collection. For contributions or issues, please refer to the main repository guidelines.
+此 Agent 属于 oTTomator Agents 集合。如有贡献建议或问题，请参阅主仓库的指南。
