@@ -1,73 +1,74 @@
-# n8n OpenWebUI Agent Integration
+# n8n 与 OpenWebUI Agent 集成
 
-This repository contains an n8n workflow template that allows you to integrate n8n agents with [Open WebUI](https://openwebui.com), enabling you to chat with your n8n-powered AI agents directly through the Open WebUI interface. 
+本仓库包含一个 n8n 工作流模板，能够将 n8n Agent 与 [Open WebUI](https://openwebui.com) 集成，使你可以通过 Open WebUI 界面直接与 n8n 驱动的 AI Agent 进行对话。
 
-If you self-host n8n and have local LLMs through something like Ollama, this solution can be used to run n8n powered agents entirely offline!
+如果你自托管了 n8n 并通过 Ollama 等方式运行本地 LLM，这个方案可以让你完全离线运行由 n8n 驱动的 Agent！
 
-This template needs to be used alongside [this Open WebUI function](https://openwebui.com/f/coleam/n8n_pipe) that integrates with n8n.
+> 本模板需配合 [Open WebUI 函数——n8n_pipe](https://openwebui.com/f/coleam/n8n_pipe) 一同使用，以完成与 n8n 的对接。
 
-## Quickstart
+## 快速开始
 
-This quickstart assumes you already have n8n installed and running.
+以下步骤假设你已安装并运行好 n8n。
 
-1. Install Open WebUI - instructions in the [Open WebUI GitHub repository](https://github.com/open-webui/open-webui
-)
-2. Go to [this Open WebUI function](https://openwebui.com/f/coleam/n8n_pipe), click "Get", and enter in the URL for your Open WebUI instance (i.e. http://localhost:3000)
-3. Import `Open_WebUI_Agent_Template.json` into your n8n instance, configure the webhook endpoint & security, connect the different services like OpenAI (or your provider of choice), and customize the agent to your needs.
-4. Go to "Profile (bottom left) -> Admin Panel -> Functions" within Open WebUI, click on the settings icon for the n8n Pipe function, and enter your n8n webhook URL, bearer token, input field key, and output field key. These are the "valves" for your function so it can connect specifically to your n8n agent.
+1. 安装 Open WebUI——具体请参见 [Open WebUI GitHub 仓库](https://github.com/open-webui/open-webui) 中的说明。  
+2. 打开 [n8n_pipe 函数页面](https://openwebui.com/f/coleam/n8n_pipe)，点击“Get”，输入你本地的 Open WebUI 地址（例如 http://localhost:3000）。  
+3. 在你的 n8n 实例中导入 `Open_WebUI_Agent_Template.json`，并配置：  
+   - Webhook 端点与安全校验（Header 验证）  
+   - OpenAI 或其他 LLM 提供商的 API 凭据  
+   - PostgreSQL 数据库连接（用于会话记忆）  
+   - 根据需求自定义 Agent 流程与工具  
+4. 在 Open WebUI 界面左下角「Profile」→「Admin Panel」→「Functions」中，找到 n8n_pipe 函数，点击设置图标，填写：  
+   - n8n Webhook URL  
+   - Bearer Token  
+   - 输入字段 Key  
+   - 输出字段 Key  
 
-## Overview
+   以上参数就是函数与特定 n8n Agent 链接的“阀门”。
 
-The `Open_WebUI_Agent_Template.json` workflow provides a ready-to-use template for creating an n8n agent that can be accessed through Open WebUI's function calling system. This integration enables:
+## 概览
 
-- Exposing your n8n AI agents as a service through a webhook
-- Maintaining conversation history with Postgres memory
-- Utilizing OpenAI's language models for responses
-- Including tools like web search capabilities
-- Seamless integration with the Open WebUI chat interface
+`Open_WebUI_Agent_Template.json` 工作流提供了一个即用型模板，使你能将 n8n Agent 通过 Open WebUI 的函数调用系统暴露为接口服务。此集成具备以下特点：
 
-## How It Works
+- 通过 Webhook 暴露 n8n AI Agent 服务  
+- 使用 PostgreSQL 存储会话记忆，保持上下文连续  
+- 调用 OpenAI（或其他模型）生成回复  
+- 集成网页搜索等工具能力  
+- 与 Open WebUI 聊天界面无缝对接  
 
-1. **Webhook Endpoint**: The workflow exposes a webhook endpoint (`invoke-n8n-agent`) that receives requests from Open WebUI.
+## 工作原理
 
-2. **Authentication**: The webhook is secured with header authentication to ensure only authorized requests are processed.
+1. Webhook 端点：`invoke-n8n-agent` 接收来自 Open WebUI 的请求。  
+2. 身份验证：通过 Header 验证确保仅授权请求可被处理。  
+3. 会话记忆：基于 Open WebUI 提供的 session ID，利用 PostgreSQL Chat Memory 保存聊天上下文。  
+4. AI 处理：调用 OpenAI 等语言模型处置用户输入并生成回复。  
+5. 工具集成：模板内置网页搜索等工具，Agent 可视需调用检索最新信息。  
+6. 响应返回：将 Agent 生成的回复格式化后，发送回 Open WebUI 界面展示给用户。
 
-3. **Conversation Memory**: The workflow uses Postgres Chat Memory to maintain context across conversation turns, using the session ID provided by Open WebUI.
+## 安装指南
 
-4. **AI Processing**: The workflow uses OpenAI's language models to process user inputs and generate responses.
+### 前提条件
 
-5. **Tool Integration**: The template includes a web search tool that allows the agent to search the web for information when needed.
+- n8n 实例（自托管或云端）  
+- OpenAI API 凭据  
+- PostgreSQL 数据库（用于会话记忆）  
+- 已安装并运行的 Open WebUI
 
-6. **Response Handling**: The agent's response is formatted and sent back to Open WebUI for display to the user.
+### 安装步骤
 
-## Setup Instructions
+1. 在 n8n 中导入模板：  
+   - 进入「Workflows」  
+   - 点击「Import from File」，选择下载好的 `Open_WebUI_Agent_Template.json`  
+2. 配置凭据：  
+   - 添加 OpenAI 或其他 LLM 的 API 凭据  
+   - 配置 PostgreSQL 数据库连接  
+   - 设置 Webhook 的 Header 身份验证  
+3. 激活工作流：  
+   - 启用该工作流，使 Webhook 端点生效  
+4. 连接到 Open WebUI：  
+   - 打开 [n8n_pipe 函数页面](https://openwebui.com/f/coleam/n8n_pipe)  
+   - 点击“Get”，输入 Open WebUI 实例地址  
+   - 编辑“阀门”设置，将 n8n Webhook URL、Bearer Token、输入/输出字段 Key 填入
 
-### Prerequisites
+## 自定义
 
-- An n8n instance (self-hosted or cloud)
-- OpenAI API credentials
-- PostgreSQL database for conversation memory
-- Open WebUI
-
-### Installation Steps
-
-1. **Import the Template**:
-   - In your n8n instance, go to "Workflows"
-   - Click "Import from File" and select the `Open_WebUI_Agent_Template.json` file after downloading it
-
-2. **Configure Credentials**:
-   - Set up your OpenAI API credentials
-   - Configure your PostgreSQL database connection
-   - Set up header authentication for the webhook
-
-3. **Activate the Workflow**:
-   - Activate the workflow to make the webhook endpoint available
-
-4. **Connect to Open WebUI**:
-   - [Visit this Open WebUI function](https://openwebui.com/f/coleam/n8n_pipe)
-   - Click "Get" and insert the URL for your Open WebUI instance
-   - Edit the "valves" (settings icon) to set the necessary configuration for your n8n agent
-
-## Customization
-
-You can customize this template by build really any AI agent you want in place of the very simple agent currently in the template that just has a single tool. You can use any LLM, any database for chat history, and any tool you would typically use with an n8n agent!
+你可以根据需要对该模板进行任意自定义，将其打造成功能丰富的 AI Agent。可以替换或添加不同的 LLM、使用其他数据库存储会话历史、集成更多工具，乃至构建完全个性化的 Agent 流程！
